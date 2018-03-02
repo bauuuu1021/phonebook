@@ -3,14 +3,16 @@
 
 #include "phonebook_opt.h"
 
-/* TODO: FILL YOUR OWN IMPLEMENTATION HERE! */
 entry *findName(char lastName[], entry *pHead)
 {
-    /* TODO: implement */
-    while (pHead != NULL) {
-        if (strcasecmp(lastName, pHead->lastName) == 0)
-            return pHead;
-        pHead = pHead->pNext;
+
+    entry *find;
+    find=prefix[lastName[0]-97].pNext;
+
+    while (find != NULL) {
+        if (strcasecmp(lastName, find->lastName) == 0)
+            return find;
+        find = find->pNext;
     }
 
     return NULL;
@@ -18,12 +20,19 @@ entry *findName(char lastName[], entry *pHead)
 
 entry *append(char lastName[], entry *e)
 {
-    /* TODO: implement */
-    e->pNext = (entry *) malloc(sizeof(entry));
-    e = e->pNext;
-    strcpy(e->lastName, lastName);
-    e->pNext = NULL;
+
+    temp = (entry *) malloc(sizeof(entry));
+
+    //check what prefix is and insert into prefix array
+    if (prefix[lastName[0]-97].pNext == NULL) {   //empty
+
+        prefix[lastName[0]-97].pNext=temp;
+    } else {
+        temp->pNext = prefix[lastName[0]-97].pNext;
+        prefix[lastName[0]-97].pNext=temp;
+    }
+
+    strcpy(temp->lastName, lastName);
 
     return e;
-    return NULL;
 }
