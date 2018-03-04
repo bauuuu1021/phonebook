@@ -24,6 +24,7 @@ static double diff_in_second(struct timespec t1, struct timespec t2)
         diff.tv_sec  = t2.tv_sec - t1.tv_sec;
         diff.tv_nsec = t2.tv_nsec - t1.tv_nsec;
     }
+
     return (diff.tv_sec + diff.tv_nsec / 1000000000.0);
 }
 
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
+
     clock_gettime(CLOCK_REALTIME, &start);
     while (fgets(line, sizeof(line), fp)) {
         while (line[i] != '\0')
@@ -86,11 +88,11 @@ int main(int argc, char *argv[])
     cpu_time2 = diff_in_second(start, end);
 
     FILE *output = fopen(OUT_FILE, "a");
-    fprintf(output, "append() findName() %lf %lf\n", cpu_time1, cpu_time2);
+    fprintf(output, "append() findName() %.8f %.8f\n", cpu_time1, cpu_time2);
     fclose(output);
 
-    printf("execution time of append() : %lf sec\n", cpu_time1);
-    printf("execution time of findName() : %lf sec\n", cpu_time2);
+    printf("execution time of append() : %.8f sec\n", cpu_time1);
+    printf("execution time of findName() : %.8f sec\n", cpu_time2);
 
     if (pHead->pNext) free(pHead->pNext);
     free(pHead);
