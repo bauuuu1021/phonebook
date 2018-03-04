@@ -25,10 +25,11 @@ typedef struct Data {
 } detail;
 
 int firstAppend;
-entry prefix[26];
+entry hashTable[1024];
 entry *temp;
 
 entry *findName(char lastName[], entry *pHead);
 entry *append(char lastName[], entry *e);
+int hash (char lastName[]);
 
 #endif
