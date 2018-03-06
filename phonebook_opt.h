@@ -25,7 +25,7 @@ typedef struct Data {
 } detail;
 
 int firstAppend;
-entry hashTable[1024];
+entry hashTable[8192];
 entry *temp;
 
 entry *findName(char lastName[], entry *pHead);

@@ -47,5 +47,5 @@ int hash (char lastName[])
     while (*lastName)
         hashNum=hashNum*seed+(*lastName++);
 
-    return hashNum%1024;
+    return hashNum%8192;
 }
