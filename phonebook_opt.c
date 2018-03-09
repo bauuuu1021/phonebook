@@ -6,14 +6,12 @@
 entry *findName(char lastName[], entry *pHead)
 {
 
-    int hashNumber=hash(lastName);
     entry *find;
-    find=hashTable[hashNumber].pNext;
+    find=prefix[lastName[0]-97].pNext;
 
     while (find != NULL) {
-        if (strcasecmp(lastName, find->lastName) == 0) {
+        if (strcasecmp(lastName, find->lastName) == 0)
             return find;
-        }
         find = find->pNext;
     }
 
@@ -23,29 +21,18 @@ entry *findName(char lastName[], entry *pHead)
 entry *append(char lastName[], entry *e)
 {
 
-    int hashNumber=hash(lastName);
     temp = (entry *) malloc(sizeof(entry));
 
-    //check hash table and insert to corresponding hash bukket
-    if (hashTable[hashNumber].pNext == NULL) {   //empty
-        hashTable[hashNumber].pNext=temp;
+    //check what prefix is and insert into prefix array
+    if (prefix[lastName[0]-97].pNext == NULL) {   //empty
+
+        prefix[lastName[0]-97].pNext=temp;
     } else {
-        temp->pNext = hashTable[hashNumber].pNext;
-        hashTable[hashNumber].pNext=temp;
+        temp->pNext = prefix[lastName[0]-97].pNext;
+        prefix[lastName[0]-97].pNext=temp;
     }
 
     strcpy(temp->lastName, lastName);
 
     return e;
-}
-
-int hash (char lastName[])
-{
-    int seed=26;
-    long long hashNum=0;
-
-    while (*lastName)
-        hashNum=hashNum*seed+(*lastName++);
-
-    return hashNum%8192;
 }
